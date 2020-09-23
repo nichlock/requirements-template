@@ -20,6 +20,8 @@ RUN apt-get -y install python3
 RUN apt-get -y install build-essential
 
 # Copy all files from repository
-COPY . /src
+COPY ./src /src
+
+COPY ./docker/scripts /
 
 ENTRYPOINT ["/bin/bash"]
