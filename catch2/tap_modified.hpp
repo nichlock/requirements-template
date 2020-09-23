@@ -268,7 +268,7 @@ TAPReporter::~TAPReporter() {
 }
 #endif // ifdef CATCH_IMPL
 
-CATCH_REGISTER_REPORTER( "tap", TAPReporter )
+CATCH_REGISTER_REPORTER( "tap-modified", TAPReporter )
 } // end namespace Catch
 
 #endif // TWOBLUECUBES_CATCH_REPORTER_TAP_HPP_INCLUDED
