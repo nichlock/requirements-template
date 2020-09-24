@@ -2,8 +2,8 @@ CXX = g++
 GIT_GLOBAL_CONFIG = git config --global
 GIT = git
 
-TESTING_FILES = '../src/main'
-TEST_REPORT_FILE = 'req_trace.md'
+FILES_FOR_TEST = '../src/main'
+TEST_REPORT_OUTFILE = 'req_trace.md'
 DIR_TO_HASH_IN_REPORT = 'Makefile' # TODO
 
 CODE_LOCATION = /src
@@ -29,14 +29,14 @@ pull-requirements-branch:
 	chmod 777 -R $(REQ_CLONE_LOCATION)/
 
 # These will define where the report is generated as well as any inputs needed.
-generate-report: export TESTING_FILES=$(TESTING_FILES)
-generate-report: export TEST_REPORT_FILE=$(TEST_REPORT_FILE)
+generate-report: export TESTING_FILES=$(FILES_FOR_TEST)
+generate-report: export TEST_REPORT_FILE=$(TEST_REPORT_OUTFILE)
 generate-report: export FILES_TO_HASH=$(DIR_TO_HASH_IN_REPORT)
 generate-report: pull-requirements-branch
 	cd $(REQ_CLONE_LOCATION); make
 
 add-report-and-commit: generate-report
-	cd $(REQ_CLONE_LOCATION); $(GIT) add $(TEST_REPORT_FILE)
+	cd $(REQ_CLONE_LOCATION); $(GIT) add $(TEST_REPORT_OUTFILE)
 	$(GIT_GLOBAL_CONFIG) user.email $(GITHUB_EMAIL) # From environment
 	$(GIT_GLOBAL_CONFIG) user.name $(GITHUB_NAME)
 	cd $(REQ_CLONE_LOCATION); $(GIT) commit -m $(AUTO_COMMIT_MSG)
