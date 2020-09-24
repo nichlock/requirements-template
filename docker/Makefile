@@ -1,4 +1,5 @@
 # Makefile for docker container with SSH server/X11 client
+# Environemnt variable GITHUB_ACCESS_TOKEN must have an access token that can push to repositories!
 
 IMAGE_TAG = test_template:latest
 
@@ -28,7 +29,11 @@ run: build
 	$(D_RUN) \
 	-p 22:22 \
 	--rm \
-	--env DISPLAY=host.docker.internal:0 \
+	--env GITHUB_ACCESS_TOKEN=$(GITHUB_ACCESS_TOKEN) \
+	--env GITHUB_USER=$(GITHUB_USER_NAME) \
+	--env GITHUB_EMAIL=nichlock@gmail.com \
+	--env REQ_BRANCH=requirements \
+	--env REPO_URL_NO_HTTP=github.com/nichlock/requirements-template.git \
 	--name $(CONTAINER_NAME) \
 	-it $(IMAGE_TAG)
 

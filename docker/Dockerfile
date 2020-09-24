@@ -19,9 +19,13 @@ RUN apt-get -y install git-core
 RUN apt-get -y install python3
 RUN apt-get -y install build-essential
 
+# X11 setup
+ENV DISPLAY=host.docker.internal:0
+
 # Copy all files from repository
 COPY ./src /src
+ENV SRC_DIR=/src
 
+# Copy and use the main makefile
 COPY ./docker/scripts /
-
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["make"]
