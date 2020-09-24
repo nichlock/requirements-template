@@ -7,5 +7,5 @@ Generated `03:43, Sep 24, 2020 (+0000)`
 
 | ID | Title | Safety<br>Critical? | Relavent | Test Cases | Test Results |
 | :--- | :--- | :--- | :--- | :--- | :--- |
- | [R-1](requirements.md#R-1) | Able to run program | :heavy_check_mark: | [GH-1](../../issues/1)<br>[GH-2](../../issues/2)<br> | T-1<br>T-2<br>T-3<br> | :heavy_check_mark:<br>:x:<br>:heavy_check_mark:<br> | 
- | [R-34](requirements.md#R-34) | Program looks nice | :x: | [GH-13](../../issues/13)<br>[GH-2](../../issues/2)<br> | T-1239<br>T-456<br> | :x:<br>:heavy_check_mark:<br> | 
+ | [R-1](requirements.md#R-1) | Able to run program | :heavy_check_mark: | [GH-1](../../issues/1)<br>[GH-2](../../issues/2)<br> | T-1<br>T-2<br>T-3<br> | :heavy_check_mark:<br>:heavy_check_mark:<br>:heavy_check_mark:<br> | 
+ | [R-34](requirements.md#R-34) | Program looks nice | :x: | [GH-13](../../issues/13)<br>[GH-2](../../issues/2)<br> | T-1239<br>T-456<br> | :heavy_check_mark:<br>:heavy_check_mark:<br> | 
