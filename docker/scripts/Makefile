@@ -2,6 +2,9 @@ CXX = g++
 GIT_GLOBAL_CONFIG = git config --global
 GIT = git
 
+TESTING_FILES = '../src/main'
+TEST_REPORT_FILE = 'req_trace.md'
+
 CODE_LOCATION = /src
 REQ_CLONE_LOCATION = /requirements-template
 
@@ -24,11 +27,12 @@ pull-requirements-branch:
 	$(GIT) clone -b $(GIHUB_REPO_REQUIREMENTS_BRANCH) https://$(REPO_URL_NO_HTTP)
 	chmod 777 -R $(REQ_CLONE_LOCATION)/
 
+write-tracer-file: export TESTING_FILES = '../src/main' TEST_REPORT_FILE = 'req_trace.md'
 write-tracer-file: pull-requirements-branch
 	cd $(REQ_CLONE_LOCATION); make
 
 add-file-and-commit: write-tracer-file
-	cd $(REQ_CLONE_LOCATION); $(GIT) add req_trace.md
+	cd $(REQ_CLONE_LOCATION); $(GIT) add $(TEST_REPORT_FILE)
 	$(GIT_GLOBAL_CONFIG) user.email $(GITHUB_EMAIL) # From environment
 	$(GIT_GLOBAL_CONFIG) user.name $(GITHUB_NAME)
 	cd $(REQ_CLONE_LOCATION); $(GIT) commit -m $(AUTO_COMMIT_MSG)
