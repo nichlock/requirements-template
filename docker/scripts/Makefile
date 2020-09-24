@@ -4,6 +4,7 @@ GIT = git
 
 TESTING_FILES = '../src/main'
 TEST_REPORT_FILE = 'req_trace.md'
+DIR_TO_HASH_IN_REPORT = 'Makefile' # TODO
 
 CODE_LOCATION = /src
 REQ_CLONE_LOCATION = /requirements-template
@@ -19,19 +20,22 @@ all: build test
 build:
 	cd $(CODE_LOCATION); make
 
-test: build requirements-tracing
+test: build generate requirements-testing-report
 
-requirements-tracing: push-github-with-credentials
+generate requirements-testing-report: push-report-branch
 
 pull-requirements-branch:
 	$(GIT) clone -b $(GIHUB_REPO_REQUIREMENTS_BRANCH) https://$(REPO_URL_NO_HTTP)
 	chmod 777 -R $(REQ_CLONE_LOCATION)/
 
-write-tracer-file: export TESTING_FILES = '../src/main' TEST_REPORT_FILE = 'req_trace.md'
-write-tracer-file: pull-requirements-branch
+# These will define where the report is generated as well as any inputs needed.
+generate-report: export TESTING_FILES=$(TESTING_FILES)
+generate-report: export TEST_REPORT_FILE=$(TEST_REPORT_FILE)
+generate-report: export FILES_TO_HASH=$(DIR_TO_HASH_IN_REPORT)
+generate-report: pull-requirements-branch
 	cd $(REQ_CLONE_LOCATION); make
 
-add-file-and-commit: write-tracer-file
+add-report-and-commit: generate-report
 	cd $(REQ_CLONE_LOCATION); $(GIT) add $(TEST_REPORT_FILE)
 	$(GIT_GLOBAL_CONFIG) user.email $(GITHUB_EMAIL) # From environment
 	$(GIT_GLOBAL_CONFIG) user.name $(GITHUB_NAME)
@@ -39,5 +43,5 @@ add-file-and-commit: write-tracer-file
 
 # Password is an access token with only repository access, from host system environment.
 # Not all that secure, but at least it's not written in the files!
-push-github-with-credentials: add-file-and-commit
+push-report-branch: add-report-and-commit
 	cd $(REQ_CLONE_LOCATION); $(GIT) push --repo https://$(GITHUB_USER):$(GITHUB_ACCESS_TOKEN)@$(REPO_URL_NO_HTTP)
