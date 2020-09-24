@@ -34,6 +34,7 @@ def get_files_from_args(args):
         opts, args = getopt.getopt(
             args, "hvr:o:a:", ["verbose", "requirements_list=", "ofile=", "hashfiles="])
     except getopt.GetoptError:
+        print("Could not interpret input.")
         print(helptext)
         sys.exit(2)
 
