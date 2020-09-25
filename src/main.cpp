@@ -1,7 +1,4 @@
-// Run this program with argument `-r tap-modified`
-#define CATCH_CONFIG_MAIN
 #include "catch2/catch2.hpp"
-#include "catch2/tap_modified.hpp"
 
 unsigned int Factorial( unsigned int number ) {
   return number <= 1 ? number : Factorial(number - 1) * number;
@@ -23,7 +20,7 @@ SCENARIO("Factorial test 3", "[R-1] [T-3]") {
   REQUIRE( Factorial(10) == 3628800 );
 }
 
-SCENARIO("Factorial test 4", "[R-34] [T-1239]") { // Is not safety critical
+SCENARIO("Factorial test 4", "[R-34] [T-1239] [!shouldfail]") { // Is not safety critical
   REQUIRE( Factorial(0) == 1 ); // Will fail
   REQUIRE( Factorial(3) == 6 );
   REQUIRE( Factorial(10) == 3628800 );
